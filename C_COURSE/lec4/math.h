@@ -1,0 +1,10 @@
+int add (int x, int y);
+int sub (int x, int y);
+int mul (int x, int y);
+int divide (int x, int y);
+int factorial (int number);
+int factorial_recursion (int number);
+int fib (int number);
+int fib_recursion (int number);
+int power (int number, int exp);
+int absolute (int number);
