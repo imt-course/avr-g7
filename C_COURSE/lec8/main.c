@@ -42,19 +42,80 @@ typedef struct
     u8 z: 1;
 } BitField;
 
+typedef union
+{
+    u8 Byte;
+    struct
+    {
+        u8 B0:1;
+        u8 B1:1;
+        u8 B2:1;
+        u8 B3:1;
+        u8 B4:1;
+        u8 B5:1;
+        u8 B6:1;
+        u8 B7:1;
+    }Bit;
+} Register;
+
+typedef enum
+{
+    SATURDAY,
+    SUNDAY,
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY
+} Day;
+
+typedef enum 
+{
+    JAN,
+    FEB,
+    MAR,
+    APR,
+    MAY,
+    JUN,
+    JUL,
+    AUG,
+    SEP,
+    OCT,
+    NOV,
+    DEC
+} Month;
+
 Complex addComplex (Complex n1, Complex n2);
 Complex addComplexRef (const Complex* n1, const Complex* n2);
 
 int main (void)
 {
-    BitField a;
+    Day day;
+    day = TUESDAY;
+    printf("%d\n", day);
+    if (day == TUESDAY)
+    {
+        printf("TRUE");
+    }
+    else
+    {
+        printf("FALSE");
+    }
+    /*Register x;
+    x.Byte = 0;
+    printf("%d\n", x.Byte);
+    x.Bit.B2 = 1;
+    printf("%d\n", x.Byte);
+    x.Bit.B5 = 1;
+    printf("%d\n", x.Byte);*/
+    /*BitField a;
     a.x = 4;
     a.y = 5;
     a.z = 1;
     printf("size = %d\n", sizeof(a));
     printf("x = %d\n", a.x);
     printf("y = %d\n", a.y);
-    printf("z = %d\n", a.z);
+    printf("z = %d\n", a.z);*/
     /*MyStruct x;
     printf("%p -- %p", &x.a, &x.b);*/
 
