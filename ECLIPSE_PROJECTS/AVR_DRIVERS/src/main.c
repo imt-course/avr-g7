@@ -11,26 +11,31 @@
 #include "Registers.h"
 
 
+#define F_CPU 8000000UL
+#include <util/delay.h>
+
 int main (void)
 {
-    /* Set Switch pin direction to input */
-    CLR_BIT(DDRA, 0);
-    /* Activate pull up resistor for switch pin */
-    SET_BIT(PORTA, 0);
-    /* Set Led pin direction to output */
-    SET_BIT(DDRA, 1);
+    u8 i;
+    u8 ssdValues[10] = {
+        0b11000000,
+        0b11111001,
+        0b10100100,
+        0b10110000,
+        0b10011001,
+        0b10010010,
+        0b10000011,
+        0b11111000,
+        0b10000000,
+        0b10010000
+    };
+    DDRA = 0xFF;
     while (1)
     {
-        /* Check if switch is pressed */
-        if (GET_BIT(PINA, 0) == 0)
+        for (i=0; i<10; i++)
         {
-            /* Turn led on */
-            SET_BIT(PORTA, 1);
-        }
-        else
-        {
-            /* Turn led off */
-            CLR_BIT(PORTA, 1);
+            PORTA = ssdValues[i];
+            _delay_ms(1000);
         }
     }
     
