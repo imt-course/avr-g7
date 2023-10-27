@@ -12,6 +12,7 @@
 
 void Ssd_Init(void);
 void Ssd_DisplayNumber(u8 number);
+void Ssd_Clear(void);
 void Ssd_DisplayDot(void);
 void Ssd_ClearDot(void);
 

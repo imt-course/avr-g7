@@ -140,6 +140,18 @@ void Ssd_DisplayNumber(u8 number)
     }
 }
 
+void Ssd_Clear(void)
+{
+    Dio_SetPinLevel(SSD_PIN_A  , SSD_OFF);
+    Dio_SetPinLevel(SSD_PIN_B  , SSD_OFF);
+    Dio_SetPinLevel(SSD_PIN_C  , SSD_OFF);
+    Dio_SetPinLevel(SSD_PIN_D  , SSD_OFF);
+    Dio_SetPinLevel(SSD_PIN_E  , SSD_OFF);
+    Dio_SetPinLevel(SSD_PIN_F  , SSD_OFF);
+    Dio_SetPinLevel(SSD_PIN_G  , SSD_OFF);
+    Dio_SetPinLevel(SSD_PIN_DOT  , SSD_OFF);
+}
+
 void Ssd_DisplayDot(void)
 {
     Dio_SetPinLevel(SSD_PIN_DOT, SSD_ON);

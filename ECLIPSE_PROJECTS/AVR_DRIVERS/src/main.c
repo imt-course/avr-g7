@@ -20,14 +20,28 @@
 
 int main (void)
 {
-    u8 i;
+    u8 number = 0;
+    boolean printFlag = FALSE;
     Ssd_Init();
+    Switch_Init(SWITCH_PIN);
+    Ssd_Clear();
     while (1)
     {
-        for (i=0; i<10; i++)
+        if (SWITCH_PRESSED == Switch_GetState(SWITCH_PIN))
         {
-            Ssd_DisplayNumber(i);
-            _delay_ms(1000);
+            if (FALSE == printFlag)
+            {
+                Ssd_DisplayNumber(number);
+                number++;
+                number = (number==10)? 0 : number;
+                printFlag = TRUE;
+            }
+        }
+        else 
+        {
+            printFlag = FALSE;
         }
     }
+    
+
 }
