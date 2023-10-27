@@ -9,6 +9,9 @@
 #include "StdTypes.h"
 #include "Macros.h"
 #include "Registers.h"
+#include "Dio.h"
+#include "Led.h"
+#include "Switch.h"
 
 
 #define F_CPU 8000000UL
@@ -16,27 +19,19 @@
 
 int main (void)
 {
-    u8 i;
-    u8 ssdValues[10] = {
-        0b11000000,
-        0b11111001,
-        0b10100100,
-        0b10110000,
-        0b10011001,
-        0b10010010,
-        0b10000011,
-        0b11111000,
-        0b10000000,
-        0b10010000
-    };
-    DDRA = 0xFF;
+    Led_Init(LED_PIN);
+    Switch_Init(SWITCH_PIN);
     while (1)
     {
-        for (i=0; i<10; i++)
+        if(SWITCH_PRESSED == Switch_GetState(SWITCH_PIN))
         {
-            PORTA = ssdValues[i];
-            _delay_ms(1000);
+            Led_TurnOn(LED_PIN);
+        }
+        else
+        {
+            Led_TurnOff(LED_PIN);
         }
     }
+    
     
 }
