@@ -12,6 +12,7 @@
 #include "Dio.h"
 #include "Led.h"
 #include "Switch.h"
+#include "Ssd.h"
 
 
 #define F_CPU 8000000UL
@@ -19,19 +20,14 @@
 
 int main (void)
 {
-    Led_Init(LED_PIN);
-    Switch_Init(SWITCH_PIN);
+    u8 i;
+    Ssd_Init();
     while (1)
     {
-        if(SWITCH_PRESSED == Switch_GetState(SWITCH_PIN))
+        for (i=0; i<10; i++)
         {
-            Led_TurnOn(LED_PIN);
-        }
-        else
-        {
-            Led_TurnOff(LED_PIN);
+            Ssd_DisplayNumber(i);
+            _delay_ms(1000);
         }
     }
-    
-    
 }
