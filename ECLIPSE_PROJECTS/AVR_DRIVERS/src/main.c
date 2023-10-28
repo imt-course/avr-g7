@@ -13,6 +13,7 @@
 #include "Led.h"
 #include "Switch.h"
 #include "Ssd.h"
+#include "Lcd.h"
 
 
 #define F_CPU 8000000UL
@@ -20,28 +21,17 @@
 
 int main (void)
 {
-    u8 number = 0;
-    boolean printFlag = FALSE;
-    Ssd_Init();
-    Switch_Init(SWITCH_PIN);
-    Ssd_Clear();
+    Lcd_Init();
     while (1)
     {
-        if (SWITCH_PRESSED == Switch_GetState(SWITCH_PIN))
-        {
-            if (FALSE == printFlag)
-            {
-                Ssd_DisplayNumber(number);
-                number++;
-                number = (number==10)? 0 : number;
-                printFlag = TRUE;
-            }
-        }
-        else 
-        {
-            printFlag = FALSE;
-        }
+        Lcd_SendData('A');
+        Lcd_SendData('h');
+        Lcd_SendData('m');
+        Lcd_SendData('e');
+        Lcd_SendData('d');
+        _delay_ms(1000);
+        Lcd_SendCommand(0b00000001);
+        _delay_ms(1000);
     }
     
-
 }
