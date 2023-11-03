@@ -21,6 +21,7 @@
 int main (void)
 {
     Keypad_ButtonType buttonCounter;
+    boolean printFlag[16] = {0};
     Keypad_Init();
     Lcd_Init(&Lcd_Configuration);
     Lcd_DisplayString("Hello");
@@ -32,13 +33,20 @@ int main (void)
         {
             if (KEYPAD_PRESSED == Keypad_GetButtonState(buttonCounter))
             {
-                Lcd_DisplayNumber(buttonCounter);
+                if (printFlag[buttonCounter] == FALSE)
+                {
+                    Lcd_DisplayNumber(buttonCounter);
+                    printFlag[buttonCounter] = TRUE;
+                }
+                else 
+                {
+                    /* Do Nothing. */
+                }
             }
             else
             {
-                /* Do Nothing. */
+                printFlag[buttonCounter] = FALSE;
             }
         }
     }
-    
 }

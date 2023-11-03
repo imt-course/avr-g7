@@ -11,8 +11,8 @@
 #include "Keypad_Cfg.h"
 #include "Keypad.h"
 
- Dio_LevelType Keypad_ReadColumnLevel(u8 column);
- void Keypad_SetRowLevel(u8 row, Dio_LevelType level);
+static Dio_LevelType Keypad_ReadColumnLevel(u8 column);
+static void Keypad_SetRowLevel(u8 row, Dio_LevelType level);
 
 void Keypad_Init(void)
 {
@@ -40,7 +40,7 @@ Keypad_ButtonStateType Keypad_GetButtonState(Keypad_ButtonType button)
     /* Read Column Level */
     if (DIO_LOW == Keypad_ReadColumnLevel(column))
     {
-        _delay_ms(5);
+        _delay_ms(20);
         if (DIO_LOW == Keypad_ReadColumnLevel(column))
         {
             state = KEYPAD_PRESSED;
@@ -59,8 +59,24 @@ Keypad_ButtonStateType Keypad_GetButtonState(Keypad_ButtonType button)
     return state;
 }
 
+Keypad_ButtonType Keypad_GetPressedButton(void)
+{
+    Keypad_ButtonType button;
+    for (button=KEYPAD_B00; button<=KEYPAD_B15; button++)
+    {
+        if (KEYPAD_PRESSED == Keypad_GetButtonState(button))
+        {
+            break;
+        }
+        else
+        {
+            /* Do Nothing. */
+        }
+    }
+    return button;
+}
 
- void Keypad_SetRowLevel(u8 row, Dio_LevelType level)
+static void Keypad_SetRowLevel(u8 row, Dio_LevelType level)
 {
     switch (row)
     {
@@ -81,7 +97,7 @@ Keypad_ButtonStateType Keypad_GetButtonState(Keypad_ButtonType button)
     }
 }
 
- Dio_LevelType Keypad_ReadColumnLevel(u8 column)
+static Dio_LevelType Keypad_ReadColumnLevel(u8 column)
 {
     Dio_LevelType level;
     switch (column)

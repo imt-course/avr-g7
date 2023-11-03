@@ -37,6 +37,6 @@ typedef enum
 
 void Keypad_Init(void);
 Keypad_ButtonStateType Keypad_GetButtonState(Keypad_ButtonType button);
-
+Keypad_ButtonType Keypad_GetPressedButton(void);
 
 #endif /* INC_KEYPAD_H_ */
