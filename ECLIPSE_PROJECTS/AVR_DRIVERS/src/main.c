@@ -12,41 +12,29 @@
 #include "Fcpu.h"
 #include <util/delay.h>
 #include "Dio.h"
-#include "Led.h"
 #include "Switch.h"
 #include "Ssd.h"
 #include "Lcd.h"
 #include "Keypad.h"
+#include "Gie.h"
+#include "ExtInt.h"
+
+#define LED_PIN     DIO_PORTA,DIO_PIN0
+
+void __vector_1 (void) __attribute__((signal));
+void __vector_1 (void)
+{
+    Dio_FlipPinLevel(LED_PIN);
+}
 
 int main (void)
 {
-    Keypad_ButtonType buttonCounter;
-    boolean printFlag[16] = {0};
-    Keypad_Init();
-    Lcd_Init(&Lcd_Configuration);
-    Lcd_DisplayString("Hello");
-    _delay_ms(500);
-    Lcd_ClearDisplay();
+    Dio_SetPinMode(EXTINT_PIN_INT0, DIO_MODE_INPUT_PULLUP);
+    Dio_SetPinMode(LED_PIN, DIO_MODE_OUTPUT);
+    ExtInt_SetSenseEdge(EXTINT_INT0, EXTINT_EDGE_FALLING);
+    ExtInt_EnableInterrupt(EXTINT_INT0);
+    GIE_ENABLE();
     while (1)
     {
-        for (buttonCounter=KEYPAD_B00; buttonCounter<=KEYPAD_B15; buttonCounter++)
-        {
-            if (KEYPAD_PRESSED == Keypad_GetButtonState(buttonCounter))
-            {
-                if (printFlag[buttonCounter] == FALSE)
-                {
-                    Lcd_DisplayNumber(buttonCounter);
-                    printFlag[buttonCounter] = TRUE;
-                }
-                else 
-                {
-                    /* Do Nothing. */
-                }
-            }
-            else
-            {
-                printFlag[buttonCounter] = FALSE;
-            }
-        }
     }
 }

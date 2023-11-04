@@ -22,5 +22,13 @@
 #define DDRD        *((volatile u8*)0x31)
 #define PORTD       *((volatile u8*)0x32)
 
+/******** ExtInt Registers ********/
+#define MCUCR       *((volatile u8*)0x55)
+#define MCUCSR      *((volatile u8*)0x54)
+#define GICR        *((volatile u8*)0x5B)
+#define GIFR        *((volatile u8*)0x5A)
+
+/******** SREG Registers ********/
+#define SREG        *((volatile u8*)0x5F)
 
 #endif /* INC_REGISTERS_H_ */
