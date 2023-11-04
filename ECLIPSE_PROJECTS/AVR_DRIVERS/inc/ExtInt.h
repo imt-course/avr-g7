@@ -32,6 +32,6 @@ typedef enum
 void ExtInt_SetSenseEdge(ExtInt_ChannelType channel, ExtInt_SenseEdgeType edge);
 void ExtInt_EnableInterrupt(ExtInt_ChannelType channel);
 void ExtInt_DisableInterrupt(ExtInt_ChannelType channel);
-
+void ExtInt_SetCallback(ExtInt_ChannelType channel, void (*funcPtr) (void));
 
 #endif /* INC_EXTINT_H_ */

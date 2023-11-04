@@ -7,7 +7,38 @@
 #include "StdTypes.h"
 #include "Registers.h"
 #include "Macros.h"
+#include "Interrupts.h"
 #include "ExtInt.h"
+
+static void (*Callback_INT0) (void) = NULL_PTR;
+static void (*Callback_INT1) (void) = NULL_PTR;
+static void (*Callback_INT2) (void) = NULL_PTR;
+
+
+ISR(VECTOR_INT0)
+{
+    if (NULL_PTR != Callback_INT0)
+    {
+        Callback_INT0();
+    }
+}
+
+ISR(VECTOR_INT1)
+{
+    if (NULL_PTR != Callback_INT1)
+    {
+        Callback_INT1();
+    }
+}
+
+ISR(VECTOR_INT2)
+{
+    if (NULL_PTR != Callback_INT2)
+    {
+        Callback_INT2();
+    }
+}
+
 
 void ExtInt_SetSenseEdge(ExtInt_ChannelType channel, ExtInt_SenseEdgeType edge)
 {
@@ -112,6 +143,24 @@ void ExtInt_DisableInterrupt(ExtInt_ChannelType channel)
         break;
     case EXTINT_INT2:
         CLR_BIT(GICR, 5);
+        break;
+    default:
+        break;
+    }
+}
+
+void ExtInt_SetCallback(ExtInt_ChannelType channel, void (*funcPtr) (void))
+{
+    switch (channel)
+    {
+    case EXTINT_INT0:
+        Callback_INT0 = funcPtr;
+        break;
+    case EXTINT_INT1:
+        Callback_INT1 = funcPtr;
+        break;
+    case EXTINT_INT2:
+        Callback_INT2 = funcPtr;
         break;
     default:
         break;
