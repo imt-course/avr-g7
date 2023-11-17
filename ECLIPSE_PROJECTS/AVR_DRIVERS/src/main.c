@@ -18,34 +18,20 @@
 #include "Keypad.h"
 #include "Gie.h"
 #include "ExtInt.h"
+#include "Adc.h"
 
-#define LED_PIN     DIO_PORTA,DIO_PIN0
-
-void SwitchHandler (void)
-{
-    if (Dio_ReadPinLevel(EXTINT_PIN_INT0) == DIO_LOW)
-    {
-        Dio_SetPinLevel(LED_PIN, DIO_HIGH);
-    }
-    else
-    {
-        Dio_SetPinLevel(LED_PIN, DIO_LOW);
-    }
-}
 
 int main (void)
 {
-    Dio_SetPinMode(EXTINT_PIN_INT0, DIO_MODE_INPUT_PULLUP);
-    Dio_SetPinMode(LED_PIN, DIO_MODE_OUTPUT);
-    ExtInt_SetSenseEdge(EXTINT_INT0, EXTINT_EDGE_ON_CHANGE);
-    ExtInt_EnableInterrupt(EXTINT_INT0);
-    ExtInt_SetCallback(EXTINT_INT0, SwitchHandler);
-    GIE_ENABLE();
-    if (Dio_ReadPinLevel(EXTINT_PIN_INT0) == DIO_LOW)
-    {
-        Dio_SetPinLevel(LED_PIN, DIO_HIGH);
-    }
+    u16 data;
+    Lcd_Init(&Lcd_Configuration);
+    Adc_Init();
     while (1)
     {
+        Adc_StartConversion();
+        data = Adc_GetResult();
+        Lcd_ClearDisplay();
+        Lcd_DisplayNumber(data);
+        _delay_ms(500);
     }
 }

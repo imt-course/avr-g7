@@ -31,4 +31,12 @@
 /******** SREG Registers ********/
 #define SREG        *((volatile u8*)0x5F)
 
+/******** ADC Registers ********/
+#define ADC_DATA    *((volatile u16*)0x24)
+#define ADCL        *((volatile u8*)0x24)
+#define ADCH        *((volatile u8*)0x25)
+#define ADCSRA      *((volatile u8*)0x26)
+#define ADMUX       *((volatile u8*)0x27)
+#define SFIOR       *((volatile u8*)0x50)
+
 #endif /* INC_REGISTERS_H_ */
