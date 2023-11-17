@@ -1,0 +1,57 @@
+/*
+ * Adc_Cfg.h
+ *
+ *  Created on: Nov 17, 2023
+ *      Author: ahmad
+ */
+
+#ifndef INC_ADC_CFG_H_
+#define INC_ADC_CFG_H_
+
+#define ADC_REF_AREF        1
+#define ADC_REF_VCC         2
+#define ADC_REF_INT_2_56V   3
+
+#define ADC_AUTO_TRIGGER_OFF           1
+#define ADC_AUTO_TRIGGER_FREE_RUNNING  2 
+#define ADC_AUTO_TRIGGER_ANAL_COMP     3 
+#define ADC_AUTO_TRIGGER_EXTINT0       4 
+#define ADC_AUTO_TRIGGER_TIM0_COMP     5 
+#define ADC_AUTO_TRIGGER_TIM0_OVF      6 
+#define ADC_AUTO_TRIGGER_TIM1_COMPB    7 
+#define ADC_AUTO_TRIGGER_TIM1_OVF      8 
+#define ADC_AUTO_TRIGGER_TIM_CAP       9
+
+/** OPTIONS: 
+ * ADC_REF_AREF
+ * ADC_REF_VCC
+ * ADC_REF_INT_2_56V
+*/
+#define ADC_CFG_REF         ADC_REF_VCC
+
+/** OPTIONS:
+ * 2
+ * 4
+ * 8
+ * 16
+ * 32
+ * 64
+ * 128
+*/
+#define ADC_CFG_PRESCALER   16
+
+/** OPTIONS:
+ * ADC_AUTO_TRIGGER_OFF         
+ * ADC_AUTO_TRIGGER_FREE_RUNNING
+ * ADC_AUTO_TRIGGER_ANAL_COMP   
+ * ADC_AUTO_TRIGGER_EXTINT0     
+ * ADC_AUTO_TRIGGER_TIM0_COMP   
+ * ADC_AUTO_TRIGGER_TIM0_OVF    
+ * ADC_AUTO_TRIGGER_TIM1_COMPB  
+ * ADC_AUTO_TRIGGER_TIM1_OVF    
+ * ADC_AUTO_TRIGGER_TIM_CAP     
+*/
+#define ADC_CFG_AUTO_TRIGGER    ADC_AUTO_TRIGGER_OFF
+
+
+#endif /* INC_ADC_CFG_H_ */
