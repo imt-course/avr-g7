@@ -11,6 +11,16 @@
 #include "Adc_Cfg.h"
 #include "Adc.h"
 
+void (*Callback_Adc) (u16 data) = NULL_PTR;
+
+ISR(VECTOR_ADC)
+{
+    if (NULL_PTR != Callback_Adc)
+    {
+        Callback_Adc(ADC_DATA&0b1111111111);
+    }
+}
+
 void Adc_Init(void)
 {
     /* Reference Selection Bits */
@@ -136,4 +146,19 @@ u16 Adc_GetResult(void)
     /* Return Result */
     return (ADC_DATA & 0b1111111111);
     // return ((ADCL | (ADCH<<8)) & 0b1111111111);
+}
+
+void Adc_EnableInterrupt(void)
+{
+    SET_BIT(ADCSRA, 3);
+}
+
+void Adc_DisableInterrupt(void)
+{
+    CLR_BIT(ADCSRA, 3);
+}
+
+void Adc_SetCallback(void (*funcPtr) (u16 data))
+{   
+    Callback_Adc = funcPtr;
 }

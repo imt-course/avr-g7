@@ -49,5 +49,8 @@ typedef enum
 void Adc_Init(void);
 void Adc_StartConversion(Adc_ChannelType channel);
 u16 Adc_GetResult(void);
+void Adc_EnableInterrupt(void);
+void Adc_DisableInterrupt(void);
+void Adc_SetCallback(void (*funcPtr) (u16 data));
 
 #endif /* INC_ADC_H_ */

@@ -20,19 +20,25 @@
 #include "ExtInt.h"
 #include "Adc.h"
 
+u16 reading;
+
+void Adc_Handler(u16 data)
+{
+    reading = data;
+}
 
 int main (void)
 {
-    u16 data;
     Lcd_Init(&Lcd_Configuration);
     Adc_Init();
-    Dio_SetPinMode(DIO_PORTA, DIO_PIN0, DIO_MODE_INPUT_FLOATING);
+    Adc_EnableInterrupt();
+    Adc_SetCallback(Adc_Handler);
+    GIE_ENABLE();
     while (1)
     {
         Adc_StartConversion(ADC_CHANNEL_ADC0);
-        data = Adc_GetResult();
         Lcd_ClearDisplay();
-        Lcd_DisplayNumber(((u32)data*5000)/1024);
+        Lcd_DisplayNumber(((u32)reading*5000)/1024);
         _delay_ms(500);
     }
 }
