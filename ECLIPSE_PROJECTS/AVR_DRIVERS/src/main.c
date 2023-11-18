@@ -29,6 +29,7 @@ int main (void)
     u16 light;
     Lcd_Init(&Lcd_Configuration);
     Adc_Init();
+    while (1)
     {
         temperature = Lm35_GetTemperature(10, 2);
         light = Ldr_GetIntensity(10, 2);
