@@ -19,26 +19,25 @@
 #include "Gie.h"
 #include "ExtInt.h"
 #include "Adc.h"
+#include "Lm35.h"
+#include "Ldr.h"
 
-u16 reading;
-
-void Adc_Handler(u16 data)
-{
-    reading = data;
-}
 
 int main (void)
 {
+    u8 temperature;
+    u16 light;
     Lcd_Init(&Lcd_Configuration);
     Adc_Init();
-    Adc_EnableInterrupt();
-    Adc_SetCallback(Adc_Handler);
-    GIE_ENABLE();
-    while (1)
     {
-        Adc_StartConversion(ADC_CHANNEL_ADC0);
+        temperature = Lm35_GetTemperature(10, 2);
+        light = Ldr_GetIntensity(10, 2);
         Lcd_ClearDisplay();
-        Lcd_DisplayNumber(((u32)reading*5000)/1024);
+        Lcd_DisplayString("Light = ");
+        Lcd_DisplayNumber(light);
+        Lcd_SetCursorPosition(1,0);
+        Lcd_DisplayString("Temp = ");
+        Lcd_DisplayNumber(temperature);
         _delay_ms(500);
     }
 }
